@@ -24,11 +24,11 @@ class Photo < ApplicationRecord
   has_many :comments
   has_many :likes
   has_many :own_photos, foreign_key: :owner_id, class_name: "Photo"
-  has_many :fans, through: :likes, source: :photo
+  has_many :fans, through: :likes
 
   validates :caption, presence: true
   validates :image, presence: true
 
-  scope :past_week, -> { where(created_atL 1.week.ago...) }
+  scope :past_week, -> { where(created_at: 1.week.ago...) }
   scope :by_likes, -> { order(likes_count: :desc) }
 end
